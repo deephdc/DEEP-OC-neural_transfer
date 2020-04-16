@@ -43,7 +43,7 @@ pipeline {
                            // GPU : pytorch allows to run same image on CPU or GPU
                            id_cpu = DockerBuild(id,
                                             tag: ['latest', 'cpu', 'gpu'], 
-                                            build_args: ["tag=${env.base_cpu_tag}",
+                                            build_args: ["tag=${env.base_tag}",
                                                          "branch=master"])
 
                            // Check that the image starts and get_metadata responses correctly
@@ -55,7 +55,7 @@ pipeline {
                            // CPU + GPU
                            id_cpu = DockerBuild(id,
                                             tag: ['test', 'cpu-test', 'gpu-test'],
-                                            build_args: ["tag=${env.base_cpu_tag}",
+                                            build_args: ["tag=${env.base_tag}",
                                                          "branch=test"])
 
                            // Check that the image starts and get_metadata responses correctly
