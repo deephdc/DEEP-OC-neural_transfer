@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        dockerhub_repo = "silked/deep-oc-neural_transfer"
+        dockerhub_repo = "deephdc/deep-oc-neural_transfer"
         base_tag = "1.2-cuda10.0-cudnn7-runtime"
     }
 
