@@ -27,6 +27,9 @@ ARG branch=test
 # If to install JupyterLab
 ARG jlab=true
 
+# Oneclient version, has to match OneData Provider and Linux version
+ARG oneclient_ver=19.02.0.rc2-1~xenial
+
 # Install ubuntu updates and python related stuff
 # link python3 to python, pip3 to pip, if needed
 # Remember: DEEP API V2 only works with python 3.6 [!]
@@ -72,11 +75,11 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.deb && \
 ENV RCLONE_CONFIG=/srv/.rclone/rclone.conf
 
 # INSTALL oneclient for ONEDATA
-RUN curl -sS  http://get.onedata.org/oneclient-1902.sh | bash && \
+RUN curl -sS  http://get.onedata.org/oneclient-1902.sh  | bash -s -- oneclient="$oneclient_ver" && \
     apt-get clean && \
     mkdir -p /mnt/onedata && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* 
 
 # Install DEEPaaS from PyPi
 # Install FLAAT (FLAsk support for handling Access Tokens)

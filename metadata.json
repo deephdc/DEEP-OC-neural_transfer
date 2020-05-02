@@ -1,22 +1,32 @@
 {
-    "title": "neural_transfer",
-    "summary": "A module to apply neural transfer in pytorch.",
+    "title": "Artistic style transfer",
+    "summary": "A module to apply artistic style transfer using pytorch.",
     "description": [
-		"This is neural_transfer application using DEEPaaS API",
+           "This is neural_transfer application using DEEPaaS API.\n",
+           "The module allows you to take the content of an image and reproduce it with a new artistic style using the style of a different image.",
+           "The code is based on the <a href=https://github.com/pytorch/examples/tree/master/fast_neural_style>Faster Neural Style Pytorch example</a> ",
+           "that implements the method described in ",
+           "\"Perceptual Losses for Real-Time Style Transfer and Super-Resolution\" developed by Justin Johnson, Alexandre Alahia and Li Fei-Fei [1].",
            "",
            "**References**\n",
+           "[1] Justin Johnson, Alexandre Alahi, Li Fei-Fei, Perceptual Losses for Real-Time Style Transfer and Super-Resolution, ",
+           "<a href=https://arxiv.org/abs/1603.08155>arXiv:1603.08155 [cs.CV]</a>",
            ""
-	],
+    ],
     "keywords": [
-        "docker",
+        "pytorch",
+        "image style transfer",
+        "trainable",
+        "inference",
+        "pre-trained",
         "api-v2"
     ],
     "license": "MIT",
     "date_creation": "2020-04-09",
     "sources": {
-		"dockerfile_repo": "https://github.com/silkedh/DEEP-OC-neural_transfer",
-		"docker_registry_repo": "silked/deep-oc-neural_transfer",
-		"code": "https://github.com/silkedh/neural_transfer"
+		"dockerfile_repo": "https://github.com/deephdc/DEEP-OC-neural_transfer",
+		"docker_registry_repo": "deephdc/deep-oc-neural_transfer",
+		"code": "https://github.com/deephdc/neural_transfer"
 	},
     "continuous_integration": {
         "build_status_badge": "https://jenkins.indigo-datacloud.eu/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/DEEP-OC-neural_transfer/master",
@@ -24,8 +34,8 @@
     },
     "tosca": [
         {
-            "title": "Mesos (CPU)",
-            "url": "https://raw.githubusercontent.com/indigo-dc/tosca-templates/master/deep-oc/deep-oc-marathon-webdav.yml",
+            "title": "Marathon",
+            "url": "https://raw.githubusercontent.com/indigo-dc/tosca-templates/master/deep-oc/deep-oc-marathon.yml",
             "inputs": [
                 "rclone_conf",
                 "rclone_url",
