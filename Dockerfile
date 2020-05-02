@@ -12,7 +12,7 @@
 # input args are defined inside the Jenkinsfile, not here!
 #
 
-ARG tag=1.4-cuda10.1-cudnn7-runtime
+ARG tag=1.2-cuda10.0-cudnn7-runtime
 
 # Base image, e.g. tensorflow/tensorflow:1.14.0-py3
 FROM pytorch/pytorch:${tag}
@@ -22,10 +22,13 @@ LABEL version='0.0.1'
 # A module to apply neural transfer in pytorch.
 
 # What user branch to clone [!]
-ARG branch=master
+ARG branch=test
 
 # If to install JupyterLab
 ARG jlab=true
+
+# Oneclient version, has to match OneData Provider and Linux version
+ARG oneclient_ver=19.02.0.rc2-1~xenial
 
 # Install ubuntu updates and python related stuff
 # link python3 to python, pip3 to pip, if needed
@@ -72,11 +75,11 @@ RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.deb && \
 ENV RCLONE_CONFIG=/srv/.rclone/rclone.conf
 
 # INSTALL oneclient for ONEDATA
-RUN curl -sS  http://get.onedata.org/oneclient-1902.sh | bash && \
+RUN curl -sS  http://get.onedata.org/oneclient-1902.sh  | bash -s -- oneclient="$oneclient_ver" && \
     apt-get clean && \
     mkdir -p /mnt/onedata && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* 
 
 # Install DEEPaaS from PyPi
 # Install FLAAT (FLAsk support for handling Access Tokens)
@@ -105,7 +108,7 @@ RUN if [ "$jlab" = true ]; then \
     else echo "[INFO] Skip JupyterLab installation!"; fi
 
 # Install user app:
-RUN git clone -b $branch https://github.com/silkedh/neural_transfer && \
+RUN git clone -b $branch https://github.com/deephdc/neural_transfer && \
     cd  neural_transfer && \
     pip install --no-cache-dir -e . && \
     rm -rf /root/.cache/pip/* && \
